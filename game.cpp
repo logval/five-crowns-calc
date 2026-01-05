@@ -5,25 +5,31 @@
 using namespace std;
 
 #include "game.h"
-#include "player.h"
 #include "user.h"
+#include "nonUser.h"
 
-Game::Game(vector<string> playerNames, int user) {
+Game::Game(int numPlayers, string playerNames, int user) {
 	this->user = user;
 	
-	for (int i = 0; i < playerNames.size(); i++) {
+	vector<string> names = parseLine(playerNames);
+	
+	if (names.size() < numPlayers) {
+		for (int i = names.size(); i < numPlayers; i++) {
+			names.push_back("Player " + to_string(i));
+		}
+	} 
+	
+	for (int i = 0; i < names.size(); i++) {
 		if (i == this->user) {
-			// this->players.push_back(new User(playerNames.at(i)));
+			this->players.push_back(new User(names.at(i)));
 		} else {
-			// this->players.push_back(new Player(playerNames.at(i)));
+			this->players.push_back(new NonUser(names.at(i)));
 		}
 	}
 }
 
 Game::~Game() {
-	for (int i = 0; i < this->players.size(); i++) {
-		Player* p = this->players.at(this->players.size() - 1 - i);
-		this->players.pop_back();
+	for (Player* p : this->players) {
 		delete p;
 	}
 }
@@ -31,8 +37,8 @@ Game::~Game() {
 void Game::newRound(int roundSize) {
 	this->roundSize = roundSize;
 	
-	for (int i = 0; i < this->players.size(); i++) {
-		// this->players.at(i)->newRound(roundSize);
+	for (Player* p : this->players) {
+		p->newRound(roundSize);
 	}
 }
 

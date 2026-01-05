@@ -1,3 +1,4 @@
+#include <vector>
 #include <string>
 #include <algorithm>
 #include <cctype>
@@ -6,19 +7,27 @@ using namespace std;
 
 #include "gameUtils.h"
 
-int stringToCard(string card) {
-	int result = 0;
-	int suitSpot; 
-	
-	// uppercases the string
+void toUpper(string s) {
 	transform(
-		card.begin(), 
-		card.end(), 
-		card.begin(), 
+		s.begin(), 
+		s.end(), 
+		s.begin(), 
 		[](unsigned char c) {
 			return toupper(c);
 		}
 	);
+}
+
+bool isQuit(string s) {
+	toUpper(s);
+	return (s == "Q" || s == "QUIT");
+}
+
+int stringToCard(string card) {
+	int result = 0;
+	int suitSpot; 
+	
+	toUpper(card);
 	
 	if (card == "J" || card == "JKR" || card == "JOKER") {
 		result = 0;
@@ -106,15 +115,7 @@ bool isWild(int card, int round) {
 bool isCard(string card) {
 	int suitSpot; 	
 	
-	// uppercases the string
-	transform(
-		card.begin(), 
-		card.end(), 
-		card.begin(), 
-		[](unsigned char c) {
-			return toupper(c);
-		}
-	);
+	toUpper(card);
 	
 	if (card == "J" || card == "JKR" || card == "JOKER") {
 		return true;
@@ -168,4 +169,36 @@ bool isCard(int card) {
 			(suit >= 1 && suit <= 5)
 		)
 	);	
+}
+
+vector<string> parseLine(string line) {
+	string term = "";
+	vector<string> terms;
+	int i = 0;
+	char current = line[i];
+	
+	while (current != '\0') {
+		while (current != ' ') {
+			term.push_back(current);
+			current = line[++i]; 
+		}
+		
+		terms.push_back(term);
+		term = "";
+		current = line[++i];
+	}
+	
+	return terms;
+}
+
+bool canBeHand(string line) {
+	vector<string> parsed = parseLine(line);
+	
+	for (string p : parsed) {
+		if (!isCard(p)) {
+			return false;
+		}
+	}
+	
+	return true;
 }

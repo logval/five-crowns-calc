@@ -6,15 +6,18 @@
 
 using namespace std;
 
+#include "hand.h"
+
 class Player {
 	public:
 		Player(string name);
-		~Player();
-		void newRound(int roundSize);
-		// show hand
+		virtual ~Player();
+		virtual void newRound(int roundSize);
+		virtual int takeTurn(bool *mustLayDown);
 		
 	private: 
 		string name;
+		int points;
 		int roundSize;
-		int* hand;
+		Hand* hand;
 };

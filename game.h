@@ -10,15 +10,18 @@ using namespace std;
 
 class Game {
 	public:
-		Game(vector<string> playerNames, int user);
+		Game(int numPlayers, string playerNames, int user);
 		~Game();
 		void newRound(int roundSize);
+		void nextTurn(bool mustLayDown);
 		Player* getUser();
-		
+		Player* getPlayer(int num);
+				
 	private: 
 		int user;
+		int turn;
+		int cardsLeft; 
 		int roundSize;
 		string discardTop;
 		vector<Player*> players;
-		Player* getPlayer(int num);
 };

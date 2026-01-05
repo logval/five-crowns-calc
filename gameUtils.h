@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -20,6 +21,8 @@ using namespace std;
  * 
  */
 
+void toUpper(string s);
+bool isQuit(string s);
 int stringToCard(string card);
 string cardToString(int card); 
 int getRank(int card);
@@ -27,3 +30,5 @@ int getSuit(int card);
 bool isWild(int card, int round);
 bool isCard(string card);
 bool isCard(int card);
+vector<string> parseLine(string line);
+bool canBeHand(string line);
