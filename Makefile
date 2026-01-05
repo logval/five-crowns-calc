@@ -1,5 +1,5 @@
 CXX = g++
-CXXFLAGS = -std=c++17 -Wall 
+CXXFLAGS = -std=c++17 -Werror 
 
 TARGET = fccalc
 OFILES = game.o hand.o user.o nonUser.o gameUtils.o

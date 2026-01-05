@@ -1,8 +1,11 @@
 #include <vector>
 #include <string>
+#include <iostream>
+#include <stdexcept>
 
 using namespace std;
 
+#include "hand.h"
 #include "gameUtils.h"
 
 Hand::Hand(string cards, int roundSize) {
@@ -18,15 +21,31 @@ Hand::~Hand() {
 	// nothing happens here
 }
 
-void addCard(int card) {
+void Hand::addCard(int card) {
 	this->cards.push_back(card);
 }
 
-int discard(int card) {
+int Hand::discard(int card) {
+	int i;
 	
+	if (!this->contains(card)) {
+		throw runtime_error("error: Hand does not contain card");
+	} else {
+		i = 0; 
+		while (i < this->cards.size()) {
+			if (this->cards.at(i) == card) {
+				break;
+			}
+			i++;
+		}
+		
+		this->cards.erase(this->cards.begin() + i); 
+		
+		return card;
+	}
 }
 
-bool contains(int card) {
+bool Hand::contains(int card) {
 	for (int c : this->cards) {
 		if (c == card) {
 			return true;
@@ -36,7 +55,7 @@ bool contains(int card) {
 	return false;
 }
 
-string handToString() {
+string Hand::handToString() {
 	string result = "";
 	
 	for (int c : this->cards) {

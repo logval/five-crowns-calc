@@ -14,6 +14,7 @@ class Player {
 		virtual ~Player();
 		virtual void newRound(int roundSize);
 		virtual int takeTurn(bool *mustLayDown);
+		virtual Hand* getHand();
 		
 	private: 
 		string name;

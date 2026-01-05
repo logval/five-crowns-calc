@@ -21,12 +21,14 @@ using namespace std;
  * 
  */
 
+void clear();
 void toUpper(string s);
 bool isQuit(string s);
 int stringToCard(string card);
 string cardToString(int card); 
 int getRank(int card);
 int getSuit(int card);
+int getCardPoints(int card, int round);
 bool isWild(int card, int round);
 bool isCard(string card);
 bool isCard(int card);

@@ -6,24 +6,21 @@
 
 #include <string>
 #include <iostream>
-#include <system>
 
 using namespace std;
 
 #include "game.h"
 #include "gameUtils.h"
-#include "player.h"
+#include "user.h"
 
 int main() {
 	string input;
-	int numPlayers;
-	int roundSize;
-	int userDeal;
+	int numPlayers, roundSize, userDeal;
 	vector<string> names;
 	Game* game;
 	Player* user;
 	
-	system("clear");
+	clear();
 	cout << "welcome to the five crowns calc" << endl;
 	
 	while (stoi(input) < 2 || stoi(input) > 7) {
@@ -33,7 +30,7 @@ int main() {
 	
 	numPlayers = stoi(input);
 	roundSize = 3;
-	input = "-1"
+	input = "-1";
 	
 	while (stoi(input) < 0 || stoi(input) >= numPlayers) {
 		cout << "how many turns until you first deal? ";
@@ -45,14 +42,30 @@ int main() {
 	cout << 
 	"please provide names for all players in a space seperated list"
 	<< endl;
-	cout << "starting with the dealer, then moving clockwise: "
-	cin >> input
+	cout << "starting with the dealer, then moving clockwise: ";
+	cin >> input;
 	
+	game = new Game(numPlayers, input, userDeal);
+	user = game->getUser();
+	input = "";
 	
+	while (roundSize < 14) {
+		clear();
+		
+		game->newRound(roundSize);
+		
+		cout << "round " << to_string(roundSize) << endl << endl;
+		cout << "your hand: " << endl;
+		cout << user->getHand();
+		
+		
+		
+		roundSize++;
+	}
 	
-	system("clear");
+	clear();
 	
-	
+	cout << "goodbye!" << endl;
 	
 	if (game != nullptr) {
 		delete game;

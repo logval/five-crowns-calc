@@ -2,10 +2,15 @@
 #include <string>
 #include <algorithm>
 #include <cctype>
+#include <iostream>
 
 using namespace std;
 
 #include "gameUtils.h"
+
+void clear() {
+	cout << "\x1b[2J\x1b[H";
+}
 
 void toUpper(string s) {
 	transform(
@@ -106,6 +111,16 @@ int getRank(int card) {
 
 int getSuit(int card) {
 	return card % 10;
+}
+
+int getCardPoints(int card, int round) {
+	if (card == 0) {
+		return 50;
+	} else if (getRank(card) == round) {
+		return 20;
+	} else {
+		return getRank(card);
+	}
 }
 
 bool isWild(int card, int round) {

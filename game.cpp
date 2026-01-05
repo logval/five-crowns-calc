@@ -5,6 +5,7 @@
 using namespace std;
 
 #include "game.h"
+#include "gameUtils.h"
 #include "user.h"
 #include "nonUser.h"
 
@@ -14,14 +15,14 @@ Game::Game(int numPlayers, string playerNames, int user) {
 	vector<string> names = parseLine(playerNames);
 	
 	if (names.size() < numPlayers) {
-		for (int i = names.size(); i < numPlayers; i++) {
+		for (int i = names.size() + 1; i < numPlayers + 1; i++) {
 			names.push_back("Player " + to_string(i));
 		}
 	} 
 	
 	for (int i = 0; i < names.size(); i++) {
 		if (i == this->user) {
-			this->players.push_back(new User(names.at(i)));
+			this->players.push_back(new User(names.at(i) + " (You)"));
 		} else {
 			this->players.push_back(new NonUser(names.at(i)));
 		}

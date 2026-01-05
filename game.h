@@ -18,10 +18,7 @@ class Game {
 		Player* getPlayer(int num);
 				
 	private: 
-		int user;
-		int turn;
-		int cardsLeft; 
-		int roundSize;
+		int user, turn, cardsLeft, roundSize;
 		string discardTop;
 		vector<Player*> players;
 };
